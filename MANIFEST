@@ -1,0 +1,28 @@
+bin/kelpx-sweet
+Changes
+ignore.txt
+lib/Kelp/Module/SessionFlash.pm
+lib/KelpX/Sweet.pm
+lib/KelpX/Sweet/Controller.pm
+lib/KelpX/Sweet/Model.pm
+lib/KelpX/Sweet/Route.pm
+log/debug.log
+log/error.log
+Makefile.PL
+MANIFEST			This list of files
+README.md
+t/00-load.t
+t/testapp.t
+t/testmods/MyApp/app.psgi
+t/testmods/MyApp/conf/config.pl
+t/testmods/MyApp/conf/deployment.pl
+t/testmods/MyApp/conf/development.pl
+t/testmods/MyApp/conf/test.pl
+t/testmods/MyApp/lib/MyApp.pm
+t/testmods/MyApp/lib/MyApp/Controller/Main.pm
+t/testmods/MyApp/lib/MyApp/Route/Main.pm
+t/testmods/MyApp/log/keep
+t/testmods/MyApp/t/main.t
+t/testmods/MyApp/views/home.tt
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)
