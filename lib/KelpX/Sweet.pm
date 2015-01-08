@@ -8,7 +8,7 @@ use FindBin;
 use Module::Find 'useall';
 use base 'Kelp';
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 sub import {
     my ($class, %opts) = @_;

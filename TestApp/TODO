@@ -1,2 +1,0 @@
-* If MyApp.pm->can('has') do nothing, else create a simple 'has' accessor - DONE!
-* Add around 'build' for modifying start up in MyApp.pm

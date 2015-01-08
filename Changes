@@ -1,5 +1,8 @@
 Revision history for KelpX-Sweet
 
+0.003   08/01/2015
+        - Removed redundant module in there I was testing with. Well, that was stupid!
+
 0.002   08/01/2015
         - Added more tests
         - New -auto import option for automatically loading Routes
