@@ -4,7 +4,7 @@
       "unknown"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 7.04, CPAN::Meta::Converter version 2.120351",
+   "generated_by" : "ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "unknown"
    ],
@@ -22,7 +22,11 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "DBIx::Class" : "0",
+            "ExtUtils::MakeMaker" : "0",
+            "Kelp::Module::Template::Toolkit" : "0",
+            "Kelp::Test" : "0",
+            "Test::More" : "0"
          }
       },
       "configure" : {
@@ -33,6 +37,7 @@
       "runtime" : {
          "requires" : {
             "Kelp" : "0",
+            "Module::Find" : "0",
             "Moo" : "0",
             "Text::ASCIITable" : "0",
             "true" : "0"
@@ -40,5 +45,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "0.001"
+   "version" : "0.002"
 }

@@ -102,6 +102,44 @@ bridge '/users/:id' => sub {
 get '/users/:id/view' => 'Controller::Users::view';
 ```
 
+## has
+
+If you only want basic accessors and KelpX::Sweet detects you don't have any OOP frameworks activated with `has`, then it will import its 
+own little method which works similar to [Moo](https://metacpan.org/pod/Moo)'s. Currently, it only supports `is`, `required` and `default`.
+
+```perl
+package MyApp;
+  
+use KelpX::Sweet;
+has 'x' => ( is => 'rw', default => sub { "Hello, world" } );
+
+package MyApp::Controller::Main;
+  
+use KelpX::Sweet::Controller;
+
+sub hello { shift->x; } # Hello, world
+```
+
+## around
+
+Need more power? Want to modify the default `build` method? No problem. Similar to `has`, if KelpX::Sweet detects you have no `around` method, it will import one. 
+This allows you to tap into build if you really want to for some reason.
+
+```perl
+package MyApp;
+
+use KelpX::Sweet;
+
+around 'build' => sub {
+    my $method = shift;
+    my $self   = shift;
+    my $routes = $self->routes;
+    $routes->add('/manual' => sub { "Manually added" });
+
+    $self->$method(@_);
+};
+```
+
 # MODELS
 
 You can always use an attribute to create a database connection, or separate them using models in a slightly cleaner way.
@@ -145,6 +183,45 @@ sub users {
     my ($self) = @_;
     my @users  = $self->model('LittleDB')->table('users')->all;
     return join ', ', map { $_->name } @users;
+}
+```
+
+## Named ResultSets
+
+If you're not using DBIx::Class, you can still have similar styled resultsets. Simply return a standard hash reference instead of a blessed object 
+from the `build` method, like so
+
+```perl
+package TestApp::Model::LittleDB;
+
+use KelpX::Sweet::Model;
+use DBIx::Lite;
+
+sub build {
+    my ($self, @args) = @_;
+    my $schema = DBIx::Lite->connect(@args);
+    return {
+        'User'       => $schema->table('users'),
+        'Product'    => $schema->table('products'),
+    };
+}
+```
+
+Then, you can do this stuff in your controllers
+
+```perl
+package TestApp::Controller::Assets;
+
+sub users {
+    my  ($self) = @_;
+    my @users   = $self->model('LittleDB::User')->all;
+    return join "<br>", map { $_->name . " (" . $_->email . ")" } @users;
+}
+
+sub products {
+    my ($self) = @_;
+    my @products = $self->model('LittleDB::Product')->all;
+    return join "<br>", map { $_->name . " (" . sprintf("%.2f", $_->value) . ")" } @products;
 }
 ```
 
@@ -223,6 +300,37 @@ Then, you just create `hello.tt`.
 ```
 
 While not really required, it does save a bit of typing and can come in quite useful.
+
+# IMPORT OPTIONS
+
+## -auto
+
+Importing -auto will automatically include any route modules within your `MyApp::Route` namespace.
+For example, we have two controllers, `Main` and `New`
+
+```perl
+package MyApp::Route::Main;
+
+use KelpX::Sweet::Route;
+
+get '/' => sub { "Hi" };
+
+package MyApp::Route::New;
+
+use KelpX::Sweet::Route;
+
+get '/new/url' => sub { "New one" };
+
+```
+
+Then to kick off our app, all we need is
+
+```perl
+package MyApp;
+use KelpX::Sweet -auto => 1;
+```
+
+That's it. KelpX::Sweet will complain if you attempt to use `maps` at the same time, because obviously that's just redundant.
 
 # REALLY COOL THINGS TO NOTE
 

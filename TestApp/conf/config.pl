@@ -33,7 +33,14 @@
 
         'Template::Toolkit' => {
             ENCODING => 'utf8',
-            INCLUDE_PATH => [app->path . '/views'],
+            INCLUDE_PATH => 'views',
         }
-    }
+    },
+    
+    'models' => {
+        'LittleDB' => {
+            'model' => 'TestApp::Model::LittleDB',
+            'args'  => ['dbi:SQLite:dbname=test.db'],
+        },
+    },
 };

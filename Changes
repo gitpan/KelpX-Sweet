@@ -1,5 +1,12 @@
 Revision history for KelpX-Sweet
 
+0.002   08/01/2015
+        - Added more tests
+        - New -auto import option for automatically loading Routes
+        - Named ResutlSet models (like DBIx::Class generated models, but for non-DBIx::Class ones)
+        - Import custom 'has' accessor if no Moose/Moo/Mouse, etc is loaded
+        - Import 'around' if no Moose/Moo/Mouse is loaded to be able to control the build method
+
 0.001   31/12/2014
         First version, released on an unsuspecting world.
 

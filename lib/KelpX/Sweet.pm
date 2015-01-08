@@ -5,23 +5,43 @@ use strict;
 use true;
 use Text::ASCIITable;
 use FindBin;
+use Module::Find 'useall';
 use base 'Kelp';
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 sub import {
-    my ($class, %args) = @_;
+    my ($class, %opts) = @_;
     strict->import();
     warnings->import();
     true->import();
     my $caller = caller;
     my $routes = [];
     my $configs = {};
+    my $auto    = 0;
     {
         no strict 'refs';
         push @{"${caller}::ISA"}, 'Kelp';
+         # check args
+        # auto load routes?
+        if ($opts{"-auto"}) {
+            $auto = 1;
+            my $route_tb = Text::ASCIITable->new;
+            $route_tb->setCols('Routes');
+            my @mod_routes = useall "${caller}::Route";
+            for my $mod (@mod_routes) {
+                $route_tb->addRow($mod);
+                push @$routes, $mod->get_routes();
+            }
+
+            print $route_tb . "\n";
+        }
+
         *{"${caller}::new"} = sub { return shift->SUPER::new(@_); };
         *{"${caller}::maps"} = sub {
+            die "Please don't use -auto and maps at the same time\n"
+                if $auto;
+
             my ($route_names) = @_;
             unless (ref $route_names eq 'ARRAY') {
                 die "routes() expects an array references";
@@ -88,17 +108,28 @@ sub import {
                     if (my $ret = $mod->build(@args)) {
                         if (ref $ret) {
                             $model_tb->addRow($mod, $name);
-                            $self->{_models}->{$name} = $ret;
+                            # returned a standard hash reference
+                            if (ref $ret eq 'HASH') {
+                                foreach my $key (keys %$ret) {
+                                    if (ref $ret->{$key}) {
+                                        $self->{_models}->{"${name}::${key}"} = $ret->{$key};
+                                        $model_tb->addRow(ref $ret->{$key}, "${name}::${key}");
+                                    }
+                                }
+                            }
+                            else {
+                                $self->{_models}->{$name} = $ret;
                         
-                            # is this dbix::class?
-                            require mro;
-                            my $dbref = ref $ret;
-                            if (grep { $_ eq 'DBIx::Class::Schema' } @{mro::get_linear_isa($dbref)}) {
-                                if ($dbref->can('sources')) {
-                                    my @sources = $dbref->sources;
-                                    for my $source (@sources) {
-                                        $self->{_models}->{"${name}::${source}"} = $ret->resultset($source);
-                                        $model_tb->addRow("${dbref}::ResultSet::${source}", "${name}::${source}");
+                                # is this dbix::class?
+                                require mro;
+                                my $dbref = ref $ret;
+                                if (grep { $_ eq 'DBIx::Class::Schema' } @{mro::get_linear_isa($dbref)}) {
+                                    if ($dbref->can('sources')) {
+                                        my @sources = $dbref->sources;
+                                        for my $source (@sources) {
+                                            $self->{_models}->{"${name}::${source}"} = $ret->resultset($source);
+                                            $model_tb->addRow("${dbref}::ResultSet::${source}", "${name}::${source}");
+                                        }
                                     }
                                 }
                             }
@@ -144,9 +175,69 @@ sub import {
             }
 
             if ($name) {
-                print "[debug] Rendering template: $name\n";
+                print "[debug] Rendering template: $name\n" if $ENV{KELPX_SWEET_DEBUG};
                 $self->template($name, $self->stash);
             }    
+        };
+
+        # if 'has' is not available (ie: no Moose, Moo, Mouse, etc), then import our own small version
+        unless ($caller->can('has')) {
+            *{"${caller}::has"} = \&_has;
+        }
+
+        # if 'around' is not available, import a small version of our own
+        {
+            no warnings 'redefine';
+            unless ($caller->can('around')) {
+                *{"${caller}::around"} = sub {
+                    my ($method, $code) = @_;
+
+                    my $fullpkg  = "${caller}::${method}";
+                    my $old_code = \&$fullpkg; 
+                    *{"${fullpkg}"} = sub {
+                          $code->($old_code, @_);
+                    };
+                };
+            }
+        }
+    }
+}
+
+sub _has {
+    my ($acc, %attrs) = @_;
+    my $class = caller;
+    my $ro = 0;
+    my $rq = 0;
+    my $df;
+    if (%attrs) {
+        if ($attrs{is} eq 'ro') { $ro = 1; }
+        if ($attrs{required}) { $rq = 1; }
+        if ($attrs{default}) { $df = $attrs{default}; }
+
+        if ($df) {
+            die "has: default expects a code reference\n"
+                unless ref $df eq 'CODE';
+        }
+    }
+    
+    {
+        no strict 'refs';
+        *{"${class}::${acc}"} = sub {
+            #if ($attrs{default}) { $_[0]->{$name} = $attrs{default}; }
+            if ($rq and not $df) {
+                if (not $_[0]->{$acc} and not $_[1]) {
+                    die "You attempted to use a field that can't be left blank: ${acc}";
+                }
+            }
+
+            if ($df) { $_[0]->{$acc} = $df->(); }
+        
+            if (@_ == 2) {
+                die "Can't modify a readonly accessor: ${acc}"
+                    if $ro;
+                $_[0]->{$acc} = $_[1];
+            }
+            return $_[0]->{$acc};
         };
     }
 }
@@ -245,6 +336,40 @@ Bridges are cool, so please check out the Kelp documentation for more informatio
 
   get '/users/:id/view' => 'Controller::Users::view';
 
+=head2 has
+
+If you only want basic accessors and KelpX::Sweet detects you don't have any OOP frameworks activated with C<has>, then it will import its 
+own little method which works similar to L<Moo>'s. Currently, it only supports C<is>, C<required> and C<default>.
+
+  package MyApp;
+    
+  use KelpX::Sweet;
+  has 'x' => ( is => 'rw', default => sub { "Hello, world" } );
+
+  package MyApp::Controller::Main;
+    
+  use KelpX::Sweet::Controller;
+  
+  sub hello { shift->x; } # Hello, world
+
+=head2 around
+
+Need more power? Want to modify the default C<build> method? No problem. Similar to C<has>, if KelpX::Sweet detects you have no C<around> method, it will import one. 
+This allows you to tap into build if you really want to for some reason.
+
+  package MyApp;
+
+  use KelpX::Sweet;
+
+  around 'build' => sub {
+      my $method = shift;
+      my $self   = shift;
+      my $routes = $self->routes;
+      $routes->add('/manual' => sub { "Manually added" });
+
+      $self->$method(@_);
+  };
+
 =head1 MODELS
 
 You can always use an attribute to create a database connection, or separate them using models in a slightly cleaner way.
@@ -283,6 +408,41 @@ That's all you need. Now you can pull that model instance out at any time in you
       my ($self) = @_;
       my @users  = $self->model('LittleDB')->table('users')->all;
       return join ', ', map { $_->name } @users;
+  }
+
+=head2 Named ResultSets
+
+If you're not using DBIx::Class, you can still have similar styled resultsets. Simply return a standard hash reference instead of a blessed object 
+from the C<build> method, like so
+
+  package TestApp::Model::LittleDB;
+  
+  use KelpX::Sweet::Model;
+  use DBIx::Lite;
+
+  sub build {
+      my ($self, @args) = @_;
+      my $schema = DBIx::Lite->connect(@args);
+      return {
+          'User'       => $schema->table('users'),
+          'Product'    => $schema->table('products'),
+      };
+  }
+
+Then, you can do this stuff in your controllers
+
+  package TestApp::Controller::Assets;
+
+  sub users {
+      my  ($self) = @_;
+      my @users   = $self->model('LittleDB::User')->all;
+      return join "<br>", map { $_->name . " (" . $_->email . ")" } @users;
+  }
+
+  sub products {
+      my ($self) = @_;
+      my @products = $self->model('LittleDB::Product')->all;
+      return join "<br>", map { $_->name . " (" . sprintf("%.2f", $_->value) . ")" } @products;
   }
 
 =head2 Models and DBIx::Class
@@ -350,6 +510,32 @@ Then, you just create C<hello.tt>.
   <h2>Hello, [% name %]</h2>
 
 While not really required, it does save a bit of typing and can come in quite useful.
+
+=head1 IMPORT OPTIONS
+
+=head2 -auto
+
+Importing -auto will automatically include any route modules within your C<MyApp::Route> namespace.
+For example, we have two controllers, C<Main> and C<New>
+
+  package MyApp::Route::Main;
+
+  use KelpX::Sweet::Route;
+  
+  get '/' => sub { "Hi" };
+
+  package MyApp::Route::New;
+  
+  use KelpX::Sweet::Route;
+  
+  get '/new/url' => sub { "New one" };
+  
+Then to kick off our app, all we need is
+
+  package MyApp;
+  use KelpX::Sweet -auto => 1;
+
+That's it. KelpX::Sweet will complain if you attempt to use C<maps> at the same time, because obviously that's just redundant.
 
 =head1 REALLY COOL THINGS TO NOTE
 

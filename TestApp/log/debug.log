@@ -1,0 +1,170 @@
+2015-01-02 15:03:28 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-02 15:03:53 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:11 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:14 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-02 15:18:22 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:23 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:23 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:41 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:42 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:18:45 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-02 15:19:33 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-02 15:19:37 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:19:39 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:19:47 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:32:21 - info - 127.0.0.1 - GET /test - TestApp::Controller::Main::test
+2015-01-02 15:32:26 - info - 127.0.0.1 - GET /manual - CODE(0x1fef478)
+2015-01-02 16:53:40 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-02 16:54:16 - info - 127.0.0.1 - GET /inc - TestApp::Controller::Main::inc
+2015-01-02 16:55:26 - info - 127.0.0.1 - GET /inc - TestApp::Controller::Main::inc
+2015-01-02 17:17:12 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-02 17:17:24 - info - 127.0.0.1 - GET /newurl - CODE(0x12c5e58)
+2015-01-02 17:17:27 - info - 127.0.0.1 - GET /newurl - CODE(0x12c5e58)
+2015-01-02 17:17:29 - info - 127.0.0.1 - GET /newurl - CODE(0x12c5e58)
+2015-01-05 10:28:22 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-05 10:28:23 - critical - Route not found TestApp::Controller::Main::User for /users at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp/Routes.pm line 188.
+
+2015-01-05 10:28:46 - info - 127.0.0.1 - GET /users - TestApp::Controller::Main::users
+2015-01-05 10:29:53 - info - 127.0.0.1 - GET /users - TestApp::Controller::Main::users
+2015-01-05 10:29:55 - info - 127.0.0.1 - GET /users - TestApp::Controller::Main::users
+2015-01-05 10:31:31 - info - 127.0.0.1 - GET /users - TestApp::Controller::Main::users
+2015-01-05 10:31:34 - info - 127.0.0.1 - GET /products - TestApp::Controller::Main::products
+2015-01-05 12:08:05 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-05 12:08:08 - info - 127.0.0.1 - GET /users/list - CODE(0xfdd838)
+2015-01-05 12:08:10 - info - 127.0.0.1 - GET /users/list - CODE(0xfdd838)
+2015-01-05 12:10:35 - info - 127.0.0.1 - GET /users/list - CODE(0x2b90838)
+2015-01-05 12:10:35 - info - 127.0.0.1 - GET /users/list - CODE(0x2b912a0)
+2015-01-05 12:10:38 - info - 127.0.0.1 - GET /users/list - CODE(0x2b90838)
+2015-01-05 12:10:38 - info - 127.0.0.1 - GET /users/list - CODE(0x2b912a0)
+2015-01-05 12:36:47 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-05 12:37:29 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-05 12:37:34 - info - 127.0.0.1 - GET /hello/Bootly - CODE(0x1da68a8)
+2015-01-05 12:37:40 - info - 127.0.0.1 - GET /hello/Bootly - CODE(0x1da68a8)
+2015-01-05 12:37:48 - info - 127.0.0.1 - GET /localhost - CODE(0x1da68a8)
+2015-01-05 12:38:19 - info - 127.0.0.1 - GET /localhost - CODE(0x2fa98f0)
+2015-01-05 12:38:19 - critical - CODE(0x2fa98f0) did not render for method GET at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp.pm line 196.
+
+2015-01-05 12:39:11 - info - 127.0.0.1 - GET /dev02 - CODE(0x2fa98f0)
+2015-01-05 12:39:11 - info - 127.0.0.1 - GET /dev02 - CODE(0x2a47c98)
+2015-01-05 12:39:17 - info - 127.0.0.1 - GET /hello/Bootly - CODE(0x2fa98f0)
+2015-01-05 12:39:17 - critical - CODE(0x2fa98f0) did not render for method GET at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp.pm line 196.
+
+2015-01-05 12:39:24 - info - 127.0.0.1 - GET /users - CODE(0x2fa98f0)
+2015-01-05 12:39:24 - info - 127.0.0.1 - GET /users - TestApp::Controller::Main::users
+2015-01-05 12:39:28 - info - 127.0.0.1 - GET /dev02 - CODE(0x2fa98f0)
+2015-01-05 12:39:28 - info - 127.0.0.1 - GET /dev02 - CODE(0x2a47c98)
+2015-01-05 12:39:47 - info - 127.0.0.1 - GET /dev02 - CODE(0x12709f8)
+2015-01-05 12:39:47 - critical - CODE(0x12709f8) did not render for method GET at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp.pm line 196.
+
+2015-01-05 12:39:48 - info - 127.0.0.1 - GET /dev02 - CODE(0x12709f8)
+2015-01-05 12:39:48 - critical - CODE(0x12709f8) did not render for method GET at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp.pm line 196.
+
+2015-01-05 12:39:51 - info - 127.0.0.1 - GET /localhost - CODE(0x12709f8)
+2015-01-05 12:39:51 - critical - CODE(0x12709f8) did not render for method GET at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp.pm line 196.
+
+2015-01-05 12:40:14 - info - 127.0.0.1 - GET / - TestApp::Controller::Main::hello
+2015-01-05 12:40:27 - critical - Can't locate object method "hostname" via package "Kelp::Request" at lib/TestApp.pm line 12.
+
+2015-01-05 12:41:07 - info - 127.0.0.1 - GET /login - CODE(0x1a0fdc8)
+2015-01-05 12:41:07 - critical - CODE(0x1a0fdc8) did not render for method GET at /opt/perl-5.14.4/lib/site_perl/5.14.4/Kelp.pm line 196.
+
+2015-01-05 12:41:22 - info - 127.0.0.1 - GET /users/list - CODE(0x1210dc8)
+2015-01-05 12:41:22 - info - 127.0.0.1 - GET /users/list - CODE(0x10f19d8)
+2015-01-05 12:41:22 - info - 127.0.0.1 - GET /users/list - CODE(0x10f2440)
+2015-01-05 12:42:05 - info - 127.0.0.1 - GET /users/list - CODE(0x1f3cdc8)
+2015-01-05 12:42:05 - info - 127.0.0.1 - GET /users/list - CODE(0x1e1d9d8)
+2015-01-05 12:42:05 - info - 127.0.0.1 - GET /users/list - CODE(0x1e1e440)
+2015-01-05 12:42:20 - critical - Can't locate object method "hostname" via package "Kelp::Request" at lib/TestApp.pm line 12.
+
+2015-01-05 12:42:32 - critical - Can't locate object method "host" via package "Kelp::Request" at lib/TestApp.pm line 12.
+
+2015-01-05 12:43:02 - info - 127.0.0.1 - GET /users/list - CODE(0x2adcdc8)
+2015-01-05 12:43:02 - info - 127.0.0.1 - GET /users/list - CODE(0x29bd9d8)
+2015-01-05 12:43:02 - info - 127.0.0.1 - GET /users/list - CODE(0x29be440)
+2015-01-05 12:43:15 - critical - Can't locate object method "remote_host" via package "TestApp" at lib/TestApp.pm line 12.
+
+2015-01-05 12:44:03 - critical - $VAR1 = {
+          'XAUTHORITY' => '/home/brad.haywood/.Xauthority',
+          'XDG_CURRENT_DESKTOP' => 'XFCE',
+          'UBUNTU_MENUPROXY' => '1',
+          'PS1' => '\\[[1m[91m\\]\\u \\[[30m\\]at \\[[38;5;172m\\]\\h \\[[30m\\]in \\[[38;5;190m\\]\\w\\[[30m\\]$([[ -n $(git branch 2> /dev/null) ]] && echo " on ")\\[[38;5;141m\\]$(parse_git_branch)\\[[30m\\]\\n$ \\[(B[m\\]',
+          'XDG_SEAT_PATH' => '/org/freedesktop/DisplayManager/Seat0',
+          'MANDATORY_PATH' => '/usr/share/gconf/xubuntu.mandatory.path',
+          'SSH_AUTH_SOCK' => '/run/user/1040/keyring-g7jPRi/ssh',
+          'PWD' => '/home/brad.haywood/git/KelpX-Sweet/TestApp',
+          'LOGNAME' => 'brad.haywood',
+          'XDG_SESSION_PATH' => '/org/freedesktop/DisplayManager/Session3',
+          'GLADE_CATALOG_PATH' => ':',
+          'PATH' => '/home/brad.haywood/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games',
+          'QT_QPA_PLATFORMTHEME' => 'appmenu-qt5',
+          'WHITE' => '[30m',
+          'IM_CONFIG_PHASE' => '1',
+          'TERM' => 'xterm-256color',
+          'DBUS_SESSION_BUS_ADDRESS' => 'unix:abstract=/tmp/dbus-zC6lRtfjZa',
+          'DISPLAY' => ':0.0',
+          'CLUTTER_IM_MODULE' => 'xim',
+          'PURPLE' => '[38;5;141m',
+          'GLADE_MODULE_PATH' => ':',
+          'XDG_RUNTIME_DIR' => '/run/user/1040',
+          'OLDPWD' => '/home/brad.haywood/git/KelpX-Sweet',
+          '_' => '/opt/perl5/bin/plackup',
+          'XDG_DATA_DIRS' => '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share/:/usr/share/:/usr/share',
+          'DESKTOP_SESSION' => 'xubuntu',
+          'SHELL' => '/bin/bash',
+          'LD_PRELOAD' => '/lib/bash_ld_preload.so',
+          'GPG_AGENT_INFO' => '/run/user/1040/keyring-g7jPRi/gpg:0:1',
+          'SELINUX_INIT' => 'YES',
+          'QT_IM_MODULE' => 'ibus',
+          'JOB' => 'dbus',
+          'GNOME_KEYRING_CONTROL' => '/run/user/1040/keyring-g7jPRi',
+          'PLACK_ENV' => 'development',
+          'COMP_WORDBREAKS' => ' 	
+"\'><;|&(:',
+          'GLADE_PIXMAP_PATH' => ':',
+          'USER' => 'brad.haywood',
+          'LANG' => 'en_GB.UTF-8',
+          'XDG_CONFIG_DIRS' => '/etc/xdg/xdg-xubuntu:/usr/share/upstart/xdg:/etc/xdg:/etc/xdg',
+          'XDG_SEAT' => 'seat0',
+          'XDG_MENU_PREFIX' => 'xfce-',
+          'SHLVL' => '1',
+          'QT4_IM_MODULE' => 'xim',
+          'WINDOWID' => '77594628',
+          'COLORTERM' => 'xfce4-terminal',
+          'GTK_MODULES' => 'overlay-scrollbar:unity-gtk-module',
+          'MAGENTA' => '[91m',
+          'INSTANCE' => '',
+          'BOLD' => '[1m',
+          'UPSTART_JOB' => 'startxfce4',
+          'UPSTART_EVENTS' => 'started xsession',
+          'SESSION' => 'xubuntu',
+          'ORANGE' => '[38;5;172m',
+          'XMODIFIERS' => '@im=ibus',
+          'HOME' => '/home/brad.haywood',
+          'TEXTDOMAIN' => 'im-config',
+          'TEXTDOMAINDIR' => '/usr/share/locale/',
+          'GNOME_KEYRING_PID' => '5453',
+          'LANGUAGE' => 'en_GB:en',
+          'UPSTART_SESSION' => 'unix:abstract=/com/ubuntu/upstart-session/1040/5493',
+          'XDG_GREETER_DATA_DIR' => '/var/lib/lightdm-data/brad.haywood',
+          'GTK_IM_MODULE' => 'ibus',
+          'XDG_VTNR' => '7',
+          'GDMSESSION' => 'xubuntu',
+          'XDG_SESSION_ID' => 'c34',
+          'DEFAULTS_PATH' => '/usr/share/gconf/xubuntu.default.path',
+          'UPSTART_INSTANCE' => '',
+          'GREEN' => '[38;5;190m',
+          'SESSIONTYPE' => '',
+          'GDM_LANG' => 'en_GB',
+          'RESET' => '(B[m',
+          'SESSION_MANAGER' => 'local/dev-02:@/tmp/.ICE-unix/5685,unix/dev-02:/tmp/.ICE-unix/5685',
+          'PS2' => '\\[[38;5;172m\\]â \\[(B[m\\]'
+        };
+
+2015-01-05 12:59:16 - info - 127.0.0.1 - GET /users - TestApp::Controller::Main::users
+2015-01-05 12:59:29 - info - 127.0.0.1 - GET /test/four - CODE(0x22fdd70)
+2015-01-05 12:59:50 - info - 127.0.0.1 - GET /test/four - CODE(0x2f68d70)
+2015-01-05 13:00:43 - info - 127.0.0.1 - GET /test/four - CODE(0x2501d70)
+2015-01-05 13:02:41 - info - 127.0.0.1 - GET /test/four - CODE(0x1938d70)
+2015-01-05 13:03:29 - info - 127.0.0.1 - GET /test/four - CODE(0x215cd70)
+2015-01-05 13:03:41 - info - 127.0.0.1 - GET /test/four - CODE(0x215cd70)
+2015-01-05 13:03:43 - info - 127.0.0.1 - GET /test/four - CODE(0x215cd70)

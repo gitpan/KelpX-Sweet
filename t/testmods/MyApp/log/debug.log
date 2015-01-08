@@ -1,0 +1,32 @@
+2014-12-30 15:10:02 - info - 127.0.0.1 - GET / - MyApp::Controller::Main::hello
+2014-12-30 15:10:08 - critical - $VAR1 = bless( [
+                 'file',
+                 'greet.tt: not found',
+                 undef
+               ], 'Template::Exception' );
+
+2014-12-30 15:10:21 - critical - $VAR1 = bless( [
+                 'file',
+                 'greet.tt: not found',
+                 undef
+               ], 'Template::Exception' );
+
+2014-12-30 15:10:23 - critical - $VAR1 = bless( [
+                 'file',
+                 'greet.tt: not found',
+                 undef
+               ], 'Template::Exception' );
+
+2014-12-30 15:11:00 - critical - $VAR1 = bless( [
+                 'file',
+                 'greet.tt: not found',
+                 undef
+               ], 'Template::Exception' );
+
+2014-12-30 15:11:02 - critical - $VAR1 = bless( [
+                 'file',
+                 'greet.tt: not found',
+                 undef
+               ], 'Template::Exception' );
+
+2014-12-30 15:12:01 - info - 127.0.0.1 - GET /greet - MyApp::Controller::Main::greet
